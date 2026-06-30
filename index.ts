@@ -9,11 +9,11 @@ const app = express();
 const PORT = process.env.PORT ?? 8000;
 
 app.use(express.json());
+app.use(pinoHttp());
 app.use(authorization);
 app.use("/user", router);
 app.use("/url", urlRoute);
 app.use("/health", healthRouter);
-app.use(pinoHttp());
 
 app.listen(PORT, () => {
   console.log(`port is up and listening`);
