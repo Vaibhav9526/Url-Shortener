@@ -10,13 +10,19 @@ import healthRouter from "./routes/health.routes.ts";
 
 import swaggerUi from "swagger-ui-express";
 import swaggerDocument from "./swagger-output.json" with { type: "json" };
+import helmet from "helmet";
+import cookieParser from "cookie-parser";
 
 const app = express();
 const PORT = process.env.PORT ?? 8000;
 
 app.use(express.json());
+app.use(helmet());
+app.use(cookieParser());
 app.use(pinoHttp());
+
 app.use(authorization);
+
 app.use("/api-docs", swaggerUi.serve, swaggerUi.setup(swaggerDocument));
 
 app.use("/user", router);

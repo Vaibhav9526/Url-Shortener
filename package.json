@@ -13,10 +13,13 @@
     "lint:staged": "lint-staged"
   },
   "dependencies": {
+    "@types/cookie-parser": "^1.4.10",
     "@types/swagger-ui-express": "^4.1.8",
+    "cookie-parser": "^1.4.7",
     "dotenv": "^17.4.2",
     "drizzle-orm": "^0.45.2",
     "express": "^5.2.1",
+    "helmet": "^8.2.0",
     "jsonwebtoken": "^9.0.3",
     "lint-staged": "^17.0.8",
     "nanoid": "^5.1.11",
