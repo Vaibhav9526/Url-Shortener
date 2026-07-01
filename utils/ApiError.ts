@@ -1,30 +1,29 @@
-interface IApiError {
-  statusCode: number;
-  message: string;
-  success: boolean;
-  errors: any[];
-  stack?: string;
-  data?: null;
+interface IApiError<T = unknown> {
+  readonly statusCode: number;
+  readonly success: boolean;
+  readonly errors: unknown[];
+  readonly data: T | null;
 }
 
-class ApiError extends Error implements IApiError {
-  statusCode;
-  message;
-  success;
-  errors;
+class ApiError<T = unknown> extends Error implements IApiError<T> {
+  readonly statusCode: number;
+  readonly success = false;
+  readonly errors: unknown[];
+  readonly data: T | null;
 
   constructor(
     statusCode: number,
-    message: string = "something went wrong",
-    errors: any[] = [],
+    message = "Something went wrong",
+    errors: unknown[] = [],
+    data: T | null = null,
     stack?: string,
-    data: null = null,
   ) {
     super(message);
+
+    this.name = this.constructor.name;
     this.statusCode = statusCode;
-    this.message = message;
-    this.success = false;
     this.errors = errors;
+    this.data = data;
 
     if (stack) {
       this.stack = stack;

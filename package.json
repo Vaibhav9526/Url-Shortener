@@ -3,7 +3,9 @@
   "scripts": {
     "dev": "node --watch index.ts",
     "db:push": "drizzle-kit push",
-    "db:studio": "drizzle-kit studio"
+    "db:studio": "drizzle-kit studio",
+    "lint": "eslint .",
+    "lint:fix": "eslint . --fix"
   },
   "dependencies": {
     "dotenv": "^17.4.2",
@@ -17,11 +19,16 @@
     "zod": "^4.4.3"
   },
   "devDependencies": {
+    "@eslint/js": "^10.0.1",
     "@types/express": "^5.0.6",
     "@types/jsonwebtoken": "^9.0.10",
     "@types/node": "^25.9.2",
     "@types/pg": "^8.20.0",
     "drizzle-kit": "^0.31.10",
-    "tsx": "^4.22.4"
+    "eslint": "^10.6.0",
+    "globals": "^17.7.0",
+    "jiti": "^2.7.0",
+    "tsx": "^4.22.4",
+    "typescript-eslint": "^8.62.1"
   }
 }
