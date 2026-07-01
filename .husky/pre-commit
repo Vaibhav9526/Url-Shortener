@@ -1,5 +1,5 @@
-echo "✅running lint-staged on staged files....."
+echo "✅running lint-staged on staged files...."
 
 bun run lint:staged
 
-echo "✅completed lint-staged on staged files....."
+echo "✅completed lint-staged on staged files...."
