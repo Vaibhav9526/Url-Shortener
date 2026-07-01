@@ -5,7 +5,7 @@ const urlTable = pgTable("url", {
   id: uuid().defaultRandom().primaryKey(),
 
   url: varchar({ length: 155 }).notNull(),
-  shortCode: varchar("code", { length: 155 }),
+  shortCode: varchar("code", { length: 155 }).unique(),
 
   userId: uuid().references(() => usersTable.id),
 });

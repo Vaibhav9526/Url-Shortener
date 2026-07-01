@@ -41,10 +41,10 @@ export const postUrl = async (req: Request, res: Response) => {
 };
 
 export const redirect = async (req: Request, res: Response) => {
-  const user = req.user;
+  // const user = req.user;
 
   const validation = await urlGetBodySchema.safeParseAsync(req.params);
-  if (!user) return res.status(400).json("user not authorized");
+  // if (!user) return res.status(400).json("user not authorized");
   if (validation.error)
     return res.status(400).json({
       error: validation.error.format(),
@@ -55,7 +55,7 @@ export const redirect = async (req: Request, res: Response) => {
   const [result] = await db
     .select()
     .from(urlTable)
-    .where((table) => and(eq(table.shortCode, code), eq(table.userId, user.id)));
+    .where((table) => and(eq(table.shortCode, code)));
 
   if (!result) return res.status(400).json("result error");
 

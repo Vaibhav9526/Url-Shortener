@@ -5,7 +5,7 @@ import { defineConfig } from "eslint/config";
 
 export default defineConfig([
   {
-    ignores: ["drizzle/**", "logs/**", "node_modules/**", "lintstagedrc.cjs"],
+    ignores: ["drizzle/**", "logs/**", "node_modules/**", ".lintstagedrc.cjs"],
   },
   js.configs.recommended,
   ...tseslint.configs.recommended,
