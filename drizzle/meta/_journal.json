@@ -15,6 +15,13 @@
       "when": 1782855971984,
       "tag": "0001_slow_blade",
       "breakpoints": true
+    },
+    {
+      "idx": 2,
+      "version": "7",
+      "when": 1782997924285,
+      "tag": "0002_cynical_blindfold",
+      "breakpoints": true
     }
   ]
 }

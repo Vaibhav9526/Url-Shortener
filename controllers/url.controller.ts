@@ -10,6 +10,7 @@ export const postUrl = async (req: Request, res: Response) => {
   const validation = await urlPostRequestBodySchema.safeParseAsync(req.body);
 
   if (!user) return res.status(401).json({ error: "not authorized" });
+
   if (validation.error) {
     return res.status(400).json({
       error: validation.error.format(),
@@ -17,6 +18,32 @@ export const postUrl = async (req: Request, res: Response) => {
   }
 
   const { url, code } = validation.data;
+
+  // * Check if the URL already exists in the database
+  const existingUrl = await db.query.urlTable.findFirst({
+    where: (table) => eq(table.url, url),
+    columns: {
+      shortCode: true,
+    },
+  });
+
+  if (existingUrl) {
+    return res.status(200).json({
+      code: existingUrl.shortCode,
+    });
+  }
+
+  // * check if the code already exists in the database
+  if (code) {
+    const existingCode = await db.query.urlTable.findFirst({
+      where: (table) => eq(table.shortCode, code),
+      columns: {
+        shortCode: true,
+      },
+    });
+
+    if (existingCode) return res.status(400).json({ existingCode });
+  }
 
   const [result] = await db
     .insert(urlTable)
@@ -27,6 +54,7 @@ export const postUrl = async (req: Request, res: Response) => {
     })
     .returning({
       id: urlTable.id,
+      shortCode: urlTable.shortCode,
     });
 
   if (!result) {
@@ -37,6 +65,7 @@ export const postUrl = async (req: Request, res: Response) => {
 
   res.status(201).json({
     message: `success creating ID ${result.id}`,
+    code: result.shortCode,
   });
 };
 
@@ -60,4 +89,18 @@ export const redirect = async (req: Request, res: Response) => {
   if (!result) return res.status(400).json("result error");
 
   res.redirect(result.url);
+};
+
+export const myUrl = async (req: Request, res: Response) => {
+  const user = req.user!;
+
+  const result = await db.query.urlTable.findMany({
+    where: (table) => eq(table.userId, user.id),
+  });
+
+  if (!result) return res.status(400).json({ error: "error" });
+
+  return res.status(200).json({
+    result,
+  });
 };

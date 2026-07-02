@@ -46,4 +46,11 @@ coverage/
 
 drizzle
 
+
+.lintstagedrc.cjs
+.prettierignore
+.prettierrc
 bun.lock
+eslint.config.ts
+swagger-output.json
+tsconfig.json
