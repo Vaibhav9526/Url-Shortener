@@ -1,8 +1,8 @@
 import express from "express";
 import "dotenv/config";
 
-import { pinoHttp } from "pino-http";
 import { authorization } from "./middleware/authorization.middleware.ts";
+import { logger, requestLogger } from "./middleware/logger.middleware.ts";
 
 import router from "./routes/user.routes.ts";
 import urlRoute from "./routes/url.routes.ts";
@@ -19,7 +19,7 @@ const PORT = process.env.PORT ?? 8000;
 app.use(express.json());
 app.use(helmet());
 app.use(cookieParser());
-app.use(pinoHttp());
+app.use(requestLogger);
 
 app.use(authorization);
 
@@ -30,5 +30,5 @@ app.use("/url", urlRoute);
 app.use("/health", healthRouter);
 
 app.listen(PORT, () => {
-  console.log(`port is up and listening`);
+  logger.info({ port: PORT }, "server started");
 });

@@ -37,7 +37,7 @@ export const signIn = async (req: Request, res: Response) => {
 
   if (validation.error) {
     return res.status(400).json({
-      error: validation.error.format(),
+      error: validation.error.format,
     });
   }
   const { email, password } = validation.data;
